@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progress Monitoring</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Progress Monitoring & AI Adaptation</h1>
+  
+  <div id="real-time-feedback">
+    <h2>Real-Time Feedback</h2>
+    <p id="feedback-message">Start tracking your habits to get real-time feedback.</p>
+  </div>
+  
+  <div id="weekly-summary">
+    <h2>Weekly Progress Summary</h2>
+    <button onclick="generateWeeklySummary()">Generate Weekly Summary</button>
+    <p id="summary-content" style="display: none;"></p>
+  </div>
+  
+  <div id="weekly-challenge">
+    <h2>Weekly Challenge</h2>
+    <button onclick="suggestChallenge()">Suggest a Challenge</button>
+    <p id="challenge-content" style="display: none;"></p>
+  </div>
+  
+  <a href="index.html">Back to Home</a>
+  
+  <script>
+    // Simulated user data for habits
+    let userHabits = {
+      'exercise': { streak: 0, lastWeek: [false, false, false, false, false, false, false] },
+      'meditate': { streak: 0, lastWeek: [false, false, false, false, false, false, false] },
+      'read': { streak: 0, lastWeek: [false, false, false, false, false, false, false] }
+    };
+
+    // Update this function based on the tracking from tracking.html
+    function updateUserHabits(habit, action) {
+      if (action === 'done') {
+        userHabits[habit].streak++;
+        userHabits[habit].lastWeek.push(true);
+        userHabits[habit].lastWeek.shift(); // Remove the oldest entry to keep it a week long
+      } else if (action === 'skipped') {
+        userHabits[habit].streak = 0;
+        userHabits[habit].lastWeek.push(false);
+        userHabits[habit].lastWeek.shift();
+      }
+    }
+
+    function generateWeeklySummary() {
+      let summary = "Here's your weekly summary:\n\n";
+      for (let habit in userHabits) {
+        let daysCompleted = userHabits[habit].lastWeek.filter(day => day).length;
+        summary += `- ${habit.charAt(0).toUpperCase() + habit.slice(1)}: You completed it ${daysCompleted} out of 7 days. ${daysCompleted > 3 ? 'Great progress!' : 'Let\'s aim for more next week.'}\n`;
+      }
+      document.getElementById('summary-content').innerText = summary;
+      document.getElementById('summary-content').style.display = 'block';
+    }
+
+    function suggestChallenge() {
+      const challenges = [
+        "Try a 3-minute cold shower this week.",
+        "Increase your meditation time by 2 minutes each session.",
+        "Read an extra chapter of your book every day.",
+        "Take a walk in nature once this week.",
+        "Try a new exercise routine."
+      ];
+      const randomChallenge = challenges[Math.floor(Math.random() * challenges.length)];
+      document.getElementById('challenge-content').innerText = `This week's challenge: ${randomChallenge}`;
+      document.getElementById('challenge-content').style.display = 'block';
+    }
+
+    // Simulated real-time feedback
+    function provideFeedback() {
+      let feedback = "Keep up the good work! Here's some feedback:\n\n";
+      for (let habit in userHabits) {
+        if (userHabits[habit].streak > 0) {
+          feedback += `- You're on a ${userHabits[habit].streak} day streak with ${habit}! Keep it going.\n`;
+        } else {
+          feedback += `- You haven't tracked ${habit} recently. Let's get back on track.\n`;
+        }
+      }
+      document.getElementById('feedback-message').innerText = feedback;
+    }
+
+    // Simulate real-time feedback every time the page loads or when habits are updated
+    provideFeedback();
+  </script>
+</body>
+</html>
