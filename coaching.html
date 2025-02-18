@@ -8,17 +8,30 @@
 </head>
 <body>
   <h1>Daily AI Coaching</h1>
+  
   <div id="morning-message">
     <h2>Morning Motivation</h2>
-    <p>Here's your morning motivational message: "Rise and shine, let's make today count!"</p>
+    <p>Here's your morning motivational message: "Rise and shine, let's make today count! Visualize your success and energize your day with action!"</p>
+    <button onclick="readMessage('morning')">Listen to Morning Message</button>
   </div>
-  <div id="midday-checkin">
-    <h2>Midday Check-In</h2>
-    <p>Time for a quick self-reflection: How are you doing with your goals today?</p>
-  </div>
+  
   <div id="evening-reflection">
     <h2>Evening Reflection</h2>
-    <p>Reflect on your day: What progress did you make? What could you improve tomorrow?</p>
+    <p>Reflect on your day with this evening message: "As the day winds down, take a moment to relax. Listen to the crickets and let go of today's stress. Remember, each day is a step towards your future self."</p>
+    <audio id="evening-audio" src="crickets.mp3" type="audio/mpeg"></audio>
+    <button onclick="playEveningSounds()">Listen to Evening Sounds</button>
   </div>
+  
+  <script>
+    function readMessage(time) {
+      if (time === 'morning') {
+        alert('Simulated TTS: "Rise and shine, let\'s make today count! Visualize your success and energize your day with action!"');
+      }
+    }
+    
+    function playEveningSounds() {
+      document.getElementById('evening-audio').play();
+    }
+  </script>
 </body>
 </html>
