@@ -8,14 +8,16 @@
 </head>
 <body>
   <h1>Habit & Goal Tracking</h1>
+  
   <div id="habit-list">
     <h2>My Habits</h2>
-    <ul>
-      <li>Exercise daily</li>
-      <li>Meditate for 10 minutes</li>
-      <li>Read 20 pages of a book</li>
+    <ul id="habits">
+      <li>Exercise daily <button onclick="trackHabit('exercise', 'done')">Done</button> <button onclick="trackHabit('exercise', 'skipped')">Skipped</button> <button onclick="trackHabit('exercise', 'postpone')">Postpone</button> <span id="exercise-streak">Streak: 0 days</span></li>
+      <li>Meditate for 10 minutes <button onclick="trackHabit('meditate', 'done')">Done</button> <button onclick="trackHabit('meditate', 'skipped')">Skipped</button> <button onclick="trackHabit('meditate', 'postpone')">Postpone</button> <span id="meditate-streak">Streak: 0 days</span></li>
+      <li>Read 20 pages of a book <button onclick="trackHabit('read', 'done')">Done</button> <button onclick="trackHabit('read', 'skipped')">Skipped</button> <button onclick="trackHabit('read', 'postpone')">Postpone</button> <span id="read-streak">Streak: 0 days</span></li>
     </ul>
   </div>
+  
   <div id="goal-list">
     <h2>My Goals</h2>
     <ul>
@@ -24,6 +26,53 @@
       <li>Learn basic Spanish</li>
     </ul>
   </div>
+  
+  <button onclick="aiAdjustHabits()">AI Adjust Habits</button>
+  
   <a href="index.html">Back to Home</a>
+  
+  <script>
+    let habits = {
+      'exercise': { streak: 0, lastAction: '' },
+      'meditate': { streak: 0, lastAction: '' },
+      'read': { streak: 0, lastAction: '' }
+    };
+
+    function trackHabit(habit, action) {
+      if (action === 'done') {
+        habits[habit].streak++;
+        habits[habit].lastAction = 'done';
+        document.getElementById(`${habit}-streak`).innerText = `Streak: ${habits[habit].streak} days`;
+        alert(`Great job on ${habit}! Keep up the good work!`);
+      } else if (action === 'skipped') {
+        habits[habit].streak = 0;
+        habits[habit].lastAction = 'skipped';
+        document.getElementById(`${habit}-streak`).innerText = `Streak: 0 days`;
+        alert(`You skipped ${habit} today. No worries, try again tomorrow!`);
+      } else if (action === 'postpone') {
+        habits[habit].lastAction = 'postpone';
+        alert(`You've postponed ${habit}. Remember to do it later!`);
+      }
+    }
+
+    function aiAdjustHabits() {
+      let message = '';
+      for (let habit in habits) {
+        if (habits[habit].lastAction === 'done') {
+          if (habits[habit].streak >= 7) {
+            message += `Congratulations on ${habit} for ${habits[habit].streak} days! Let's increase the challenge by adding 1 minute to your ${habit} time.\n`;
+          } else if (habits[habit].streak === 0) {
+            message += `You've reset your streak for ${habit}. Let's start fresh and aim for consistency.\n`;
+          }
+        } else if (habits[habit].lastAction === 'skipped') {
+          message += `You skipped ${habit} recently. How about we try to make it easier by reducing the time or changing the activity?\n`;
+        }
+      }
+      if (message === '') {
+        message = 'No adjustments needed at this time. Keep up the great work!';
+      }
+      alert(message);
+    }
+  </script>
 </body>
 </html>
