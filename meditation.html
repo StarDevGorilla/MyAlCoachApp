@@ -8,14 +8,23 @@
 </head>
 <body>
   <h1>Meditation & Visualization</h1>
+  
   <div id="meditation-session">
-    <h2>Meditation Session</h2>
-    <p>Take a moment to relax and focus on your breath. Here's a simple guided meditation:</p>
-    <audio controls>
-      <source src="meditation.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
+    <h2>Morning Meditation</h2>
+    <p>Start your day with a focus on visualizing your successful future. Here's a guided meditation:</p>
+    <button onclick="readMorningMeditation()">Start Morning Meditation</button>
+    <p id="morning-meditation-text" style="display: none;">Close your eyes, take a deep breath in, and out. Visualize yourself one year from now, having achieved your goals. You're strong, confident, and accomplished. Feel the satisfaction of your future achievements. Now, let's focus on the steps to get there...</p>
+    <audio id="morning-audio" src="morning.mp3" type="audio/mpeg"></audio>
+    <button onclick="playMorningSounds()">Play Morning Sounds</button>
+    
+    <h2>Evening Meditation</h2>
+    <p>End your day with reflection and relaxation. Here's your evening meditation:</p>
+    <button onclick="readEveningMeditation()">Start Evening Meditation</button>
+    <p id="evening-meditation-text" style="display: none;">As you prepare for sleep, take a moment to reflect on today. What did you learn? What can you let go? Now, breathe in peace, breathe out the day's stress. Imagine the gentle sounds of nature surrounding you, like the soft chirping of crickets...</p>
+    <audio id="evening-audio" src="crickets.mp3" type="audio/mpeg"></audio>
+    <button onclick="playEveningSounds()">Play Evening Sounds</button>
   </div>
+  
   <div id="visualization">
     <h2>Visualization</h2>
     <p>Imagine yourself achieving your goals. Visualize the steps you need to take:</p>
@@ -25,6 +34,25 @@
       <li>Picture yourself speaking Spanish fluently.</li>
     </ul>
   </div>
+  
   <a href="index.html">Back to Home</a>
+  
+  <script>
+    function readMorningMeditation() {
+      document.getElementById('morning-meditation-text').style.display = 'block';
+    }
+    
+    function readEveningMeditation() {
+      document.getElementById('evening-meditation-text').style.display = 'block';
+    }
+    
+    function playMorningSounds() {
+      document.getElementById('morning-audio').play();
+    }
+    
+    function playEveningSounds() {
+      document.getElementById('evening-audio').play();
+    }
+  </script>
 </body>
 </html>
