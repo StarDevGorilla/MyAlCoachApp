@@ -16,6 +16,46 @@
   <a href="meditation.html">Go to Meditation & Visualization</a>
   <br>
   <button onclick="changeBackgroundColor()">Change Background Color</button>
+  
+  <div id="daily-facts-jokes">
+    <h2>Daily Facts & Jokes</h2>
+    <button onclick="showFact()">Show Daily Fact</button>
+    <p id="daily-fact" style="display: none;"></p>
+    <button onclick="showJoke()">Show Daily Joke</button>
+    <p id="daily-joke" style="display: none;"></p>
+  </div>
+  
   <script src="script.js"></script>
+  <script>
+    // Array of facts
+    const facts = [
+      "The Great Wall of China is not visible from space with the naked eye.",
+      "Bananas are berries, but strawberries aren't.",
+      "The shortest war in history was between Zanzibar and England in 1896. Zanzibar surrendered after just 38 minutes.",
+      "Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still perfectly good to eat.",
+      "The world's oldest known musical instrument is a flute made from a vulture bone, found in Germany, dating back 40,000 years."
+    ];
+
+    // Array of jokes
+    const jokes = [
+      "Why don't eggs tell jokes? They'd crack each other up.",
+      "What do you call cheese that isn't yours? Nacho cheese.",
+      "Why was the math book sad? It had too many problems.",
+      "What do you call a bear with no socks on? Barefoot.",
+      "How does a penguin build its house? Igloos it together."
+    ];
+
+    function showFact() {
+      const randomFact = facts[Math.floor(Math.random() * facts.length)];
+      document.getElementById('daily-fact').innerText = randomFact;
+      document.getElementById('daily-fact').style.display = 'block';
+    }
+
+    function showJoke() {
+      const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
+      document.getElementById('daily-joke').innerText = randomJoke;
+      document.getElementById('daily-joke').style.display = 'block';
+    }
+  </script>
 </body>
 </html>
